@@ -10,9 +10,9 @@
   <style>
     :root {
       --black: #111110;
-      --dark: #2c2b29;
-      --mid: #6b6860;
-      --muted: #9a9890;
+      --dark: #111110;      /* Changed to deep black for description text */
+      --mid: #111110;       /* Changed to deep black for description text */
+      --muted: #6b6860;     /* Darkened slightly for better readability while keeping structure */
       --rule: #d8d5cf;
       --bg: #faf9f7;
       --bg2: #f2f0ec;
@@ -114,7 +114,8 @@
       gap: 2.5rem;
     }
     .hero-summary {
-      font-size: 1.05rem; font-weight: 300;
+      font-size: 1.175rem; /* Increased by 2 units (~0.125rem / 2px equivalent) */
+      font-weight: 300;
       line-height: 1.85;
       color: var(--mid);
     }
@@ -143,7 +144,8 @@
       margin-bottom: 4rem;
     }
     .section-tag {
-      font-size: 0.68rem; font-weight: 600;
+      font-size: 0.93rem; /* Increased by 4 units (~0.25rem from 0.68rem) */
+      font-weight: 600;
       letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--muted);
       padding-top: 0.3rem;
@@ -159,7 +161,8 @@
 
     /* ── ABOUT ── */
     .about-text p {
-      font-size: 0.95rem; color: var(--mid);
+      font-size: 1.075rem; /* Increased by 2 units (~0.125rem from 0.95rem) */
+      color: var(--dark);  /* Hard black color */
       line-height: 1.85; margin-bottom: 1.2rem;
       font-weight: 300;
     }
@@ -194,17 +197,46 @@
       color: var(--black); margin-bottom: 0.15rem;
     }
     .exp-org {
-      font-size: 0.82rem; color: var(--muted);
-      margin-bottom: 1rem; font-style: italic;
+      font-size: 0.88rem; color: var(--black);
+      margin-bottom: 0.25rem; font-weight: 400;
+    }
+    .exp-location {
+      font-size: 0.78rem; color: var(--muted);
+      margin-bottom: 1rem;
     }
     .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
     .exp-bullets li {
-      font-size: 0.88rem; color: var(--mid);
+      font-size: 0.88rem; color: var(--dark); /* Hard black color */
       padding-left: 1.2rem; position: relative;
       font-weight: 300; line-height: 1.7;
     }
     .exp-bullets li::before {
       content: '—'; position: absolute; left: 0; color: var(--rule);
+    }
+
+    /* ── LINKEDIN STYLE GROUPED EXPERIENCE ── */
+    .ln-group {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--rule);
+      margin-left: 0.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .ln-group-item {
+      position: relative;
+    }
+    .ln-group-item::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.5rem - 6px);
+      top: 0.4rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--rule);
     }
 
     /* ── EDUCATION ── */
@@ -222,8 +254,9 @@
       font-size: 0.95rem; font-weight: 600; color: var(--black);
       margin-bottom: 0.2rem;
     }
-    .edu-school { font-size: 0.82rem; color: var(--muted); }
-    .edu-thesis { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; font-style: italic; font-weight: 300; }
+    .edu-school { font-size: 0.88rem; color: var(--black); font-weight: 400; }
+    .edu-meta { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .edu-thesis { font-size: 0.78rem; color: var(--dark); margin-top: 0.4rem; font-style: italic; font-weight: 300; }
 
     /* ── PUBLICATIONS ── */
     .pub-intro {
@@ -248,456 +281,10 @@
       margin-bottom: 0.35rem;
     }
     .pub-authors {
-      font-size: 0.78rem; color: var(--muted);
+      font-size: 0.78rem; color: var(--dark); /* Hard black color */
       margin-bottom: 0.25rem; font-weight: 300;
     }
     .pub-journal {
-      font-size: 0.78rem; color: var(--mid);
+      font-size: 0.78rem; color: var(--dark); /* Hard black color */
       font-style: italic;
     }
-    .pub-doi a {
-      font-size: 0.72rem; color: var(--link);
-      text-decoration: none; margin-left: 0.5rem;
-    }
-    .pub-badge {
-      display: inline-block; margin-left: 0.4rem;
-      font-size: 0.65rem; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--muted); border: 1px solid var(--rule);
-      padding: 1px 5px; border-radius: 2px; font-style: normal;
-    }
-    .pub-inprep .pub-year { color: var(--rule); }
-    .pub-inprep .pub-title { color: var(--mid); font-weight: 400; }
-    .pub-note { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; font-style: italic; }
-    .prep-section-label {
-      font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--muted); padding: 2.5rem 0 0.5rem;
-    }
-
-    /* ── AWARDS ── */
-    .awards-list { display: flex; flex-direction: column; gap: 0; }
-    .award-item {
-      display: grid; grid-template-columns: 80px 1fr;
-      gap: 2rem; padding: 1.5rem 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: baseline;
-    }
-    .award-year {
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.1em; color: var(--muted);
-    }
-    .award-name {
-      font-size: 0.92rem; font-weight: 600; color: var(--black);
-      margin-bottom: 0.15rem;
-    }
-    .award-org { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--rule);
-      padding: 4rem 0;
-    }
-    .footer-inner {
-      max-width: 1060px; margin: 0 auto; padding: 0 4rem;
-      display: flex; justify-content: space-between; align-items: flex-end;
-    }
-    .footer-name {
-      font-size: 1.1rem; font-weight: 300;
-      letter-spacing: -0.01em; color: var(--black);
-      margin-bottom: 0.3rem;
-    }
-    .footer-address { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
-    .footer-links { display: flex; flex-direction: column; gap: 0.3rem; align-items: flex-end; }
-    .footer-links a {
-      font-size: 0.78rem; color: var(--muted);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--black); }
-    .footer-copy { font-size: 0.68rem; color: var(--rule); margin-top: 0.5rem; text-align: right; }
-
-    /* ── FADE IN ── */
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
-    .fade-in.visible { opacity: 1; transform: none; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 780px) {
-      nav { padding: 0 1.5rem; }
-      .nav-links { gap: 1.5rem; }
-      .hero-inner, .section-header, .section-body, .exp-item, .edu-item, .award-item, .pub-item {
-        grid-template-columns: 1fr; gap: 1rem;
-      }
-      .hero-inner { padding: 3rem 1.5rem 4rem; }
-      .hero-left { border-right: none; padding-right: 0; border-bottom: 1px solid var(--rule); padding-bottom: 2rem; margin-bottom: 2rem; }
-      .hero-right { padding-left: 0; }
-      .container { padding: 0 1.5rem; }
-      .hero-initial { font-size: 100px; }
-      .footer-inner { flex-direction: column; gap: 2rem; align-items: flex-start; }
-      .footer-links { align-items: flex-start; }
-      .footer-copy { text-align: left; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Abhishek A. Kadam</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#publications">Publications</a></li>
-    <li><a href="#awards">Awards</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <h1 class="hero-name">Abhishek A. Kadam</h1>
-      <div class="hero-rule"></div>
-      <div class="hero-role">Organic and Organometallic Chemist · Scientist</div>
-      <div class="hero-contact">
-        <a href="mailto:aakadam05@gmail.com">aakadam05@gmail.com</a>
-        <a href="https://linkedin.com/in/kadam-abhishek" target="_blank">linkedin.com/in/kadam-abhishek</a>
-        <a href="https://scholar.google.com/citations?user=nJXEpXkAAAAJ&hl=en" target="_blank">Google Scholar</a>
-        <a href="https://orcid.org/0000-0001-9453-2996" target="_blank">ORCID: 0000-0001-9453-2996</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <p class="hero-summary">
-        Innovative chemist with extensive experience in synthetic methodology and a proven track record in leading industry–academic collaborations. Driven by harnessing catalysis for medicinal chemistry applications to accelerate drug discovery.
-      </p>
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-num">10+</div>
-          <div class="stat-label">Publications</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">Ph.D.</div>
-          <div class="stat-label">Iowa State, 2019</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">Postdoc</div>
-          <div class="stat-label">Princeton University</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="section" id="about">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-tag">About</div>
-      <h2 class="section-title">Bridging scientific curiosity and chemical technologies</h2>
-    </div>
-    <div class="section-body fade-in">
-      <div class="competencies">
-        <div class="comp-label">Core competencies</div>
-        <div class="comp-item">Metallophotoredox catalysis</div>
-        <div class="comp-item">Base-metal catalysis</div>
-        <div class="comp-item">C–H / C–N bond activation</div>
-        <div class="comp-item">Enantioselective synthesis</div>
-        <div class="comp-item">Mechanistic studies</div>
-        <div class="comp-item">NMR · GC-MS · LC-MS</div>
-        <div class="comp-item">Cyclic voltammetry</div>
-        <div class="comp-item">Glovebox & Schlenk protocols</div>
-        <div class="comp-item">Industry collaboration</div>
-      </div>
-      <div class="about-text">
-        <p>I am an organic/organometallic chemist with expertise in synthetic methodology, mechanistic analysis, and catalysis. My research harnesses base-metal catalysis to build practical chemical tools that accelerate drug discovery.</p>
-        <p>At Princeton University, I lead an active industry–academic collaboration with Bristol Myers Squibb, successfully translating cutting-edge methodologies into industrial-applicable protocols. I have experience in managing multidisciplinary research teams consisting of postdoctoral scientists, graduate and undergraduates students across different programs.</p>
-        <p>My technical toolkit spans multidimensional NMR and LC-MS to cyclic voltammetry and photophysical characterization, underpinned by rigorous glovebox and Schlenk line expertise. I am equally comfortable leading science and building the infrastructure — laboratory setup, safety operations, and team culture — that makes great science possible.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE & EDUCATION -->
-<section class="section" id="experience">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-tag">Experience</div>
-      <h2 class="section-title">Career & training</h2>
-    </div>
-    <div class="exp-list fade-in">
-      <div class="exp-item">
-        <div class="exp-date">Sep 2025 – Present</div>
-        <div>
-          <div class="exp-title">Associate Research Scholar</div>
-          <div class="exp-org">Princeton University, Princeton NJ · PI: Prof. Jose B. Roque</div>
-          <ul class="exp-bullets">
-            <li>Leads active collaboration with Bristol Myers Squibb through the Princeton Catalysis Initiative, transitioning metallophotoredox methodologies into industrial-ready protocols.</li>
-            <li>Manages research teams of postdoctoral scientists, graduate and undergraduate students across new programs in metalloradical studies, metallophotoredox catalysis, and positional editing.</li>
-            <li>Standardized rigorous glovebox and Schlenk protocols for air- and moisture-sensitive chemistry.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-date">Jan 2024 – Aug 2025</div>
-        <div>
-          <div class="exp-title">Postdoctoral Associate</div>
-          <div class="exp-org">Princeton University, Princeton NJ · PI: Prof. Jose B. Roque</div>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-date">Jan 2020 – Dec 2023</div>
-        <div>
-          <div class="exp-title">Postdoctoral Associate</div>
-          <div class="exp-org">University of Rochester, Rochester NY · PI: Prof. C. Rose Kennedy</div>
-          <ul class="exp-bullets">
-            <li>Led interdisciplinary collaboration with the McCamant lab using spectroscopic and mechanistic studies to identify catalyst deactivation pathways and establish photophysical characterization of bimetallic systems.</li>
-            <li>Managed ground-up setup of a new research laboratory including equipment procurement and installation.</li>
-            <li>Served as safety officer and primary liaison between Environmental Health & Safety and the Kennedy lab.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- EDUCATION -->
-    <div class="fade-in" style="margin-top: 5rem;">
-      <div class="section-header" style="margin-bottom:0;">
-        <div class="section-tag">Education</div>
-        <h2 class="section-title">Academic background</h2>
-      </div>
-      <div class="edu-list">
-        <div class="edu-item">
-          <div class="edu-year">2019</div>
-          <div>
-            <div class="edu-degree">Ph.D. in Organic Chemistry</div>
-            <div class="edu-school">Iowa State University, Ames IA · PI: Prof. Levi M. Stanley</div>
-            <div class="edu-thesis">Catalytic Methods for Alkene Functionalization Reactions</div>
-          </div>
-        </div>
-        <div class="edu-item">
-          <div class="edu-year">2017</div>
-          <div>
-            <div class="edu-degree">M.S. in Organic Chemistry</div>
-            <div class="edu-school">Iowa State University, Ames IA · Advisor: Prof. Levi M. Stanley</div>
-            <div class="edu-thesis">Enantioselective synthesis of compounds containing bis-benzylic quaternary stereocenters through palladium-catalyzed conjugate additions of arylboronic acids</div>
-          </div>
-        </div>
-        <div class="edu-item">
-          <div class="edu-year">2013</div>
-          <div>
-            <div class="edu-degree">B.Tech. in Pharmaceutical Sciences & Technology</div>
-            <div class="edu-school">Institute of Chemical Technology, Mumbai, India</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PUBLICATIONS -->
-<section class="section" id="publications">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-tag">Publications</div>
-      <h2 class="section-title">Research output</h2>
-    </div>
-    <div class="section-body fade-in">
-      <div class="pub-intro">
-        ORCID: <a href="https://orcid.org/0000-0001-9453-2996" target="_blank">0000-0001-9453-2996</a><br><br>
-        †equal contribution<br>
-        <u>undergraduate mentees</u>
-      </div>
-      <div>
-        <div class="pub-list">
-          <div class="pub-item">
-            <div class="pub-year">2024</div>
-            <div>
-              <div class="pub-title">Catalyst Deactivation Modes in Nickel-Mediated Suzuki–Miyaura Cross-Coupling Reactions Using an NHC-Pyridonate Ligand</div>
-              <div class="pub-authors">Kadam, A. A.; †Afandiyeva, M.; †Brennessel, W. W.; Kennedy, C. R.*</div>
-              <div class="pub-journal">Organometallics, 2024, ASAP <a href="https://doi.org/10.1021/acs.organomet.4c00235" target="_blank" class="pub-doi">DOI →</a></div>
-            </div>
-          </div>
-          <div class="pub-item">
-            <div class="pub-year">2023</div>
-            <div>
-              <div class="pub-title">Secondary-Sphere Preorganization by an NHC-Pyridonate Ligand Enables Nickel-Catalyzed Hydroboration of Nitriles</div>
-              <div class="pub-authors">Afandiyeva, M.;† Wu, X.;† Brennessel, W. W.; Kadam, A. A.; Kennedy, C. R.*</div>
-              <div class="pub-journal">Chem. Commun., 2023, 59, 13450–13453</div>
-            </div>
-          </div>
-          <div class="pub-item">
-            <div class="pub-year">2023</div>
-            <div>
-              <div class="pub-title">Insights into H⁺ and e⁻ transfer by swapping Fe for Mn in a [NiFe] hydrogenase model</div>
-              <div class="pub-authors">Kadam, A. A.; Kennedy, C. R.</div>
-              <div class="pub-journal">Chem, 2023, 9, 1–3 <a href="https://doi.org/10.1016/j.chempr.2023.08.017" target="_blank" class="pub-doi">DOI →</a></div>
-            </div>
-          </div>
-          <div class="pub-item">
-            <div class="pub-year">2023</div>
-            <div>
-              <div class="pub-title">Remixing the Secondary Coordination Sphere</div>
-              <div class="pub-authors">Kadam, A. A.; Kennedy, C. R.*</div>
-              <div class="pub-journal">Trends in Chemistry, 2023, 5, 506–508 <a href="https://doi.org/10.1016/j.trechm.2023.04.010" target="_blank" class="pub-doi">DOI →</a></div>
-            </div>
-          </div>
-          <div class="pub-item">
-            <div class="pub-year">2022</div>
-            <div>
-              <div class="pub-title">Synthesis, Structure, and Hydroboration Reactivity of Anionic Nickel(0) Complexes Supported by Bidentate NHC-Pyridone Ligands</div>
-              <div class="pub-authors">Kadam, A. A.;† Afandiyeva, M.;† Wu, X.;† Brennessel, W. W.; Kennedy, C. R.*</div>
-              <div class="pub-journal">Organometallics, 2022, 41, 3014–3023 <span class="pub-badge">ACS Editor's Choice</span><span class="pub-badge">Top 3 Most-Read</span></div>
-            </div>
-          </div>
-          <div class="pub-item">
-            <div class="pub-year">2021</div>
-            <div>
-              <div class="pub-title">Palladium-Catalyzed Intermolecular Acylative Heck Reaction using Imides as Acyl Electrophiles</div>
-              <div class="pub-authors">Kadam, A. A.;† Metz, T. L.;† David, C. M.; Koeritz, M. T.; Stanley, L. M.*</div>
-              <div class="pub-journal">J. Org. Chem., 2021, 86, 8683–8868</div>
-            </div>
-          </div>
-          <div class="pub-item">
-            <div class="pub-year">2020</div>
-            <div>
-              <div class="pub-title">Ni-Catalyzed Intermolecular Carboacylation of Internal Alkynes via Amide C–N Bond Activation</div>
-              <div class="pub-authors">Koeritz, M. T.; Burgett, R. W.; Kadam, A. A.; Stanley, L. M.*</div>
-              <div class="pub-journal">Org. Lett., 2020, 22, 5731–5736</div>
-            </div>
-          </div>
-          <div class="pub-item">
-            <div class="pub-year">2019</div>
-            <div>
-              <div class="pub-title">Nickel-Catalyzed Three-Component Alkene Carboacylation Initiated by Amide C–N Bond Activation</div>
-              <div class="pub-authors">Kadam, A. A.;† Metz, T. L.;† Qian, Y.; Stanley, L. M.*</div>
-              <div class="pub-journal">ACS Catalysis, 2019, 9, 5651–5656</div>
-            </div>
-          </div>
-          <div class="pub-item">
-            <div class="pub-year">2017</div>
-            <div>
-              <div class="pub-title">Enantioselective, Palladium-Catalyzed Conjugate Additions of Arylboronic Acids to Form Bis-benzylic Quaternary Stereocenters</div>
-              <div class="pub-authors">Kadam, A. A.; Ellern, A.; Stanley, L. M.*</div>
-              <div class="pub-journal">Org. Lett., 2017, 19, 4062–4065</div>
-              <div class="pub-note">Highlighted in Synfacts: Lautens, M.; Franzoni, I. Synfacts 2017, 13, 1068</div>
-            </div>
-          </div>
-
-          <div class="prep-section-label">Manuscripts in preparation</div>
-
-          <div class="pub-item pub-inprep">
-            <div class="pub-year">—</div>
-            <div>
-              <div class="pub-title">Store-and-Release Strategy Enables Nickel-Catalyzed Migratory Arylations of Aliphatic Amines</div>
-              <div class="pub-authors">Kadam, A. A.; †Lee, K.; †Knyazev, A.; Liao, Y.; Lourenço, J.; Cauley, A. N.; Dones, J. M.; Oderinde, M.; Kempson, J.; Roque, J. B.*</div>
-            </div>
-          </div>
-          <div class="pub-item pub-inprep">
-            <div class="pub-year">—</div>
-            <div>
-              <div class="pub-title">Nickel-Catalyzed Migratory Arylations of Aliphatic Alcohols</div>
-              <div class="pub-authors">Kadam, A. A.; †Lee, K.; †Adamovic, L.; Cauley, A. N.; Dones, J. M.; Oderinde, M.; Kempson, J.; Roque, J. B.*</div>
-            </div>
-          </div>
-          <div class="pub-item pub-inprep">
-            <div class="pub-year">—</div>
-            <div>
-              <div class="pub-title">Masked Nickel(I) Dimetalloradicals: Synthesis, Stoichiometric Studies, and Catalytic Applications</div>
-              <div class="pub-authors">Kadam, A. A.; Patil, S.; Wu, X.; Pecoraro, M.; Musaev, D. G.; Roque, J. B.*</div>
-            </div>
-          </div>
-          <div class="pub-item pub-inprep">
-            <div class="pub-year">—</div>
-            <div>
-              <div class="pub-title">Bimetallic Nickel Complexes Supported by Redox Non-innocent Iminopyridonate Ligands</div>
-              <div class="pub-authors">Kadam, A. A.; †Mitiku, H. A.; Cai, L.; Reagen, R. S.; Brennessel, W. W.; McCamant, D. W.; Kennedy, C. R.*</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AWARDS -->
-<section class="section" id="awards">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-tag">Awards</div>
-      <h2 class="section-title">Recognitionv& honors</h2>
-    </div>
-    <div class="section-body fade-in">
-      <div></div>
-      <div class="awards-list">
-        <div class="award-item">
-          <div class="award-year">2023</div>
-          <div>
-            <div class="award-name">Leadership in Mentoring Award</div>
-            <div class="award-org">American Chemical Society, San Francisco CA</div>
-          </div>
-        </div>
-        <div class="award-item">
-          <div class="award-year">2019</div>
-          <div>
-            <div class="award-name">Edward V. Sayre Chemistry Scholarship Award</div>
-            <div class="award-org">Iowa State University</div>
-          </div>
-        </div>
-        <div class="award-item">
-          <div class="award-year">2019</div>
-          <div>
-            <div class="award-name">Drtina Chemistry Graduate Student Travel Award</div>
-            <div class="award-org">Iowa State University</div>
-          </div>
-        </div>
-        <div class="award-item">
-          <div class="award-year">2019</div>
-          <div>
-            <div class="award-name">GPSS Professional Development Grant (PAG) Award</div>
-            <div class="award-org">Iowa State University</div>
-          </div>
-        </div>
-        <div class="award-item">
-          <div class="award-year">2018</div>
-          <div>
-            <div class="award-name">David N. and Minnie I. Wall Graduate Scholarship Award</div>
-            <div class="award-org">Iowa State University</div>
-          </div>
-        </div>
-        <div class="award-item">
-          <div class="award-year">2018</div>
-          <div>
-            <div class="award-name">Teaching Excellence Award</div>
-            <div class="award-org">Iowa State University</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-name">Abhishek A. Kadam</div>
-      <div class="footer-address">Department of Chemistry, Princeton University<br>Princeton, NJ 08544</div>
-    </div>
-    <div>
-      <div class="footer-links">
-        <a href="mailto:aakadam05@gmail.com">aakadam05@gmail.com</a>
-        <a href="https://linkedin.com/in/kadam-abhishek" target="_blank">LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=nJXEpXkAAAAJ&hl=en" target="_blank">Google Scholar</a>
-        <a href="https://orcid.org/0000-0001-9453-2996" target="_blank">ORCID</a>
-      </div>
-      <div class="footer-copy">© 2026 Abhishek A. Kadam</div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-</body>
-</html>
